@@ -1,0 +1,147 @@
+{
+	"info": {
+		"_postman_id": "ef25d62a-f641-48a1-8d6d-16bec704cb09",
+		"name": "schema-validator",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22519036"
+	},
+	"item": [
+		{
+			"name": "localhost:8123/api/validate",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"schema\": {\n        \"$schema\": \"http://json-schema.org/draft-07/schema\",\n        \"type\": \"object\",\n        \"properties\": {\n            \"BusinessServiceConfig\": {\n                \"$ref\": \"#/definitions/BusinessServiceConfigData\"\n            }\n        },\n        \"required\": [\n            \"BusinessServiceConfig\"\n        ],\n        \"title\": \"BusinessServiceConfigData\",\n        \"definitions\": {\n            \"BusinessServiceConfigData\": {\n                \"type\": \"object\",\n                \"properties\": {\n                    \"tenantId\": {\n                        \"type\": \"string\"\n                    },\n                    \"moduleName\": {\n                        \"type\": \"string\"\n                    },\n                    \"BusinessService\": {\n                        \"type\": \"array\",\n                        \"items\": {\n                            \"type\": \"object\",\n                            \"properties\": {\n                                \"businessService\": {\n                                    \"type\": \"string\"\n                                },\n                                \"code\": {\n                                    \"type\": \"string\"\n                                }\n                            },\n                            \"required\": [\n                                \"businessService\",\n                                \"code\"\n                            ]\n                        }\n                    }\n                },\n                \"required\": [\n                    \"BusinessService\",\n                    \"moduleName\",\n                    \"tenantId\"\n                ]\n            }\n        }\n    },\n    \"data\": {\n        \"BusinessServiceConfig\": {\n            \"tenantId\": \"statea\",\n            \"moduleName\": \"expense\",\n            \"BusinessService\": [\n                {\n                    \"businessService\": \"works.wages\",\n                    \"code\": \"EXPENSE.WAGES\"\n                },\n                {\n                    \"businessService\": \"works.purchase\",\n                    \"code\": \"EXPENSE.PURCHASE\"\n                },\n                {\n                    \"businessService\": \"works.supervision\",\n                    \"code\": \"EXPENSE.SUPERVISION\"\n                },\n                {\n                    \"businessService\": \"contract\",\n                    \"code\": \"CONTRACT\"\n                },\n                {\n                    \"businessService\": \"muster roll\",\n                    \"code\": \"MR\"\n                },\n                {\n                    \"businessService\": \"estimate\",\n                    \"code\": \"ESTIMATE\"\n                }\n            ]\n        }\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8123/api/validate",
+					"host": [
+						"localhost"
+					],
+					"port": "8123",
+					"path": [
+						"api",
+						"validate"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Valid Schema and Data",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"schema\": {\n        \"$schema\": \"http://json-schema.org/draft-07/schema\",\n        \"$id\": \"https://example.com/employee.schema.json\",\n        \"title\": \"Record of employee\",\n        \"description\": \"This document records the details of an employee\",\n        \"type\": \"object\",\n        \"properties\": {\n            \"id\": {\n                \"description\": \"A unique identifier for an employee\",\n                \"type\": \"number\"\n            },\n            \"name\": {\n                \"description\": \"Full name of the employee\",\n                \"type\": \"string\"\n            },\n            \"age\": {\n                \"description\": \"Age of the employee\",\n                \"type\": \"number\"\n            },\n            \"hobbies\": {\n                \"description\": \"Hobbies of the employee\",\n                \"type\": \"object\",\n                \"properties\": {\n                    \"indoor\": {\n                        \"type\": \"array\",\n                        \"items\": {\n                            \"description\": \"List of indoor hobbies\",\n                            \"type\": \"string\"\n                        }\n                    },\n                    \"outdoor\": {\n                        \"type\": \"array\",\n                        \"items\": {\n                            \"description\": \"List of outdoor hobbies\",\n                            \"type\": \"string\"\n                        }\n                    }\n                }\n            }\n        }\n    },\n    \"data\": {\n        \"id\": 7,\n        \"name\": \"John Doe\",\n        \"age\": 22,\n        \"hobbies\": {\n            \"indoor\": [\n                \"Chess\"\n            ],\n            \"outdoor\": [\n                \"BasketballStand-up Comedy\"\n            ]\n        }\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8123/api/validate",
+							"host": [
+								"localhost"
+							],
+							"port": "8123",
+							"path": [
+								"api",
+								"validate"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 06 Jun 2023 19:21:00 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"is_valid\": true,\n    \"message\": \"Correct\"\n}"
+				},
+				{
+					"name": "Invalid data",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"schema\": {\n        \"$schema\": \"http://json-schema.org/draft-07/schema\",\n        \"$id\": \"https://example.com/employee.schema.json\",\n        \"title\": \"Record of employee\",\n        \"description\": \"This document records the details of an employee\",\n        \"type\": \"object\",\n        \"properties\": {\n            \"id\": {\n                \"description\": \"A unique identifier for an employee\",\n                \"type\": \"number\"\n            },\n            \"name\": {\n                \"description\": \"Full name of the employee\",\n                \"type\": \"string\"\n            },\n            \"age\": {\n                \"description\": \"Age of the employee\",\n                \"type\": \"number\"\n            },\n            \"hobbies\": {\n                \"description\": \"Hobbies of the employee\",\n                \"type\": \"object\",\n                \"properties\": {\n                    \"indoor\": {\n                        \"type\": \"array\",\n                        \"items\": {\n                            \"description\": \"List of indoor hobbies\",\n                            \"type\": \"string\"\n                        }\n                    },\n                    \"outdoor\": {\n                        \"type\": \"array\",\n                        \"items\": {\n                            \"description\": \"List of outdoor hobbies\",\n                            \"type\": \"string\"\n                        }\n                    }\n                }\n            }\n        }\n    },\n    \"data\": {\n        \"id\": 7,\n        \"name\": \"John Doe\",\n        \"age\": 22,\n        \"hobbies\": {\n            \"indoor\":{\n                \"name\": \"chess\"\n            },\n            \"outdoor\": [\n                \"BasketballStand-up Comedy\"\n            ]\n        }\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8123/api/validate",
+							"host": [
+								"localhost"
+							],
+							"port": "8123",
+							"path": [
+								"api",
+								"validate"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 06 Jun 2023 19:23:50 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"is_valid\": false,\n    \"message\": \"#/hobbies/indoor: expected type: JSONArray, found: JSONObject\"\n}"
+				}
+			]
+		}
+	]
+}
